@@ -20,8 +20,10 @@ if (!require('fs').existsSync(uploadDir)) {
 app.use(
   cors({
     origin: [
-      "https://your-firebase-project.web.app",
-      "https://your-firebase-project.firebaseapp.com"
+      "http://localhost:3000",
+      "http://192.168.56.1:3000",
+      "https://iamgroot-214e3.web.app",
+      "https://iamgroot-214e3.firebaseapp.com"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -33,10 +35,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- MongoDB Connection ---
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Connected Successfully'))
   .catch((err) => console.error('❌ MongoDB Connection Error:', err));
 
