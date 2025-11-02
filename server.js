@@ -17,7 +17,17 @@ if (!require('fs').existsSync(uploadDir)) {
 }
 
 // --- Middleware ---
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://your-firebase-project.web.app",
+      "https://your-firebase-project.firebaseapp.com"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -138,7 +148,7 @@ app.get('/api/blinks', async (req, res) => {
       const obj = b.toObject();
       // Construct full URL for media if it exists
       if (obj.mediaUrl) {
-        obj.mediaDataUrl = `http://localhost:5000/uploads/${obj.mediaUrl}`;
+        obj.mediaDataUrl = `https://backend-0s60.onrender.com/uploads/${obj.mediaUrl}`;
       }
       return obj;
     });
