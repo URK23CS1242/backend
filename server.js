@@ -72,6 +72,7 @@ const FriendRequest = mongoose.model('FriendRequest', friendRequestSchema);
 // Blink (Post) Schema
 const blinkSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+
   content: { type: String, maxlength: 200 },
   likes: { type: Number, default: 0 },
   comments: { type: [String], default: [] },
@@ -148,7 +149,7 @@ app.get('/api/blinks', async (req, res) => {
       const obj = b.toObject();
       // Construct full URL for media if it exists
       if (obj.mediaUrl) {
-        obj.mediaDataUrl = `https://backend-0s60.onrender.com/uploads/${obj.mediaUrl}`;
+        obj.mediaDataUrl = `http://localhost:5000/uploads/${obj.mediaUrl}`;
       }
       return obj;
     });
@@ -517,5 +518,5 @@ app.delete('/api/friends/:userId/:friendId', async (req, res) => {
 // =============================
 // 🚀 START SERVER
 // =============================
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
